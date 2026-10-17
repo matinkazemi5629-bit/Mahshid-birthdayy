@@ -48,6 +48,14 @@ h1{font-family:Georgia,serif;font-size:40px;margin:9px 0 4px;color:#e3bb70;font-
 .heart{position:fixed;bottom:-30px;font-size:20px;opacity:.6;animation:float 8s linear infinite;pointer-events:none}
 @keyframes float{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
 .note{font-size:12px;color:#716956;margin-top:14px}
+.telegramBtn{
+ display:block;margin:18px auto 0;max-width:360px;padding:13px 16px;
+ border:1px solid #a77b35;border-radius:14px;text-decoration:none;
+ background:linear-gradient(135deg,#18120a,#0b0b0b);
+ color:#f4ddb0;font-size:15px;font-weight:600;
+ transition:.2s
+}
+.telegramBtn:hover{transform:translateY(-2px);border-color:#e0b96e}
 </style>
 </head>
 <body>
@@ -76,6 +84,7 @@ h1{font-family:Georgia,serif;font-size:40px;margin:9px 0 4px;color:#e3bb70;font-
     <p id="resultText"></p>
     <div style="font-size:28px;margin-top:15px">❤️</div>
     <p style="font-size:14px;margin-top:10px;color:#b9aa8f">انتخابت ثبت شد... بقیه‌ش رو بسپار به من.</p>
+    <a id="telegramBtn" class="telegramBtn" href="#" target="_blank" rel="noopener">انتخابم رو برای عشقم بفرست ❤️</a>
     <button class="back" onclick="resetChoice()">تغییر انتخاب</button>
   </div>
 
@@ -89,20 +98,30 @@ function choose(n){
  const result=document.getElementById('result');
  const title=document.getElementById('resultTitle');
  const text=document.getElementById('resultText');
+ const telegramBtn=document.getElementById('telegramBtn');
  document.getElementById('options').style.display='none';
+
+ let choiceTitle, message;
  if(n===1){
-   title.textContent='یک شب خاص 🌙';
+   choiceTitle='یک شب خاص 🌙';
+   title.textContent=choiceTitle;
    text.innerHTML='شام دونفره، یک اتاق دنج، کیک و یک سورپرایز کوچک...<br>و شبی که فقط برای با هم بودنمونه.';
+   message='عشق من ❤️ من «یک شب خاص» رو انتخاب کردم 🌙🥰';
  }else{
-   title.textContent='یک شب رمانتیک ✨';
+   choiceTitle='یک شب رمانتیک ✨';
+   title.textContent=choiceTitle;
    text.innerHTML='یک رستوران شیک، شام دونفره، یک کادوی کوچک از طرف من<br>و کلی لحظه قشنگ کنار هم.';
+   message='عشق من ❤️ من «یک شب رمانتیک» رو انتخاب کردم ✨🥰';
  }
+
+ telegramBtn.href='https://t.me/Matinkazuki?text='+encodeURIComponent(message);
  result.classList.add('show');
  for(let i=0;i<8;i++) setTimeout(makeHeart,i*140);
 }
 function resetChoice(){
  document.getElementById('result').classList.remove('show');
  document.getElementById('options').style.display='grid';
+ document.getElementById('telegramBtn').href='#';
 }
 function makeHeart(){
  const h=document.createElement('div');h.className='heart';h.textContent='♥';
